@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Characteres from "./Components/Characteres";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {  Container } from "react-bootstrap";
+import Header from "./Components/Header";
+import ThemeContex from "./Context/ThemeContex";
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const [contexto, setContexto] = useState(false);
+
+  const handleClik = () => {
+    setContexto(!contexto);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ backgroundColor: contexto === false ? "black" : "white" }}>
+      <ThemeContex.Provider value={contexto}>
+        <Header contexto={contexto} handleClik={handleClik} />
+        <Container>
+          <div style={{ marginTop: "80px" }}>
+           
+            <Characteres contexto={contexto} />
+          </div>
+        </Container>
+      </ThemeContex.Provider>
     </div>
   );
-}
+};
 
 export default App;
