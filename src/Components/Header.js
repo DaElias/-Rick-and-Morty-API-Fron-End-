@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+/**{ useContext}  */
+import React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
-import ThemeContex from "../Context/ThemeContex";
+// import ThemeContex from "../Context/ThemeContex";
 import OffCanvasExample from "./OffCanvasE";
 
-const Header = ({  handleClik,contexto }) => {
-  // const color = useC ontext(ThemeContex);
-
+const Header = ({ handleClik, contexto }) => {
   return (
     <Navbar bg={contexto === false ? "black" : "light"} fixed="top">
       <Container>
@@ -14,10 +13,24 @@ const Header = ({  handleClik,contexto }) => {
           href="#"
         >
           Rick and Morty API
-          
         </Navbar.Brand>
         <OffCanvasExample name="Menu" />
-        <Button variant="link" style={{fontSize:"20px",textDecoration:"none"}} onClick={handleClik}> {contexto===true?"🌝":"🌚"}</Button>
+
+        <Button
+          variant="link"
+          style={{
+            fontSize: "20px",
+            textDecoration: "none",
+            position: "absolute",
+            left: "10px",
+            top: "20%",
+            backgroundColor: contexto === false ? "black" : "white",
+          }}
+          onClick={handleClik}
+        >
+          {" "}
+          {contexto === true ? "🌝" : "🌚"}
+        </Button>
       </Container>
     </Navbar>
   );

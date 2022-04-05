@@ -1,40 +1,57 @@
-import React, { useState } from "react";
-import { Offcanvas, Button } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Offcanvas, Button, ListGroup, Badge } from "react-bootstrap";
+import ThemeContex from "../Context/ThemeContex";
+
 const OffCanvasExample = ({ name, ...props }) => {
   const [show, setShow] = useState(false);
+  const elementosFavoritos = useContext(ThemeContex);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <>
-      <Button variant="light" onClick={handleShow} className="me-2">
-        {name}
+      <Button
+        variant="light"
+        onClick={handleShow}
+        className="me-2 animation"
+        style={{
+          position: "fixed",
+          right: "2%",
+        }}
+      >
+        <b style={{ paddingRight: "8px" }}>{name}</b>
+        <Badge bg="primary" pill>
+          {elementosFavoritos.length}
+        </Badge>
       </Button>
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+          <Offcanvas.Title></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <h3>Rick and Morty API</h3>
-          <p>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y
-            archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar
-            de las industrias desde el año 1500, cuando un impresor (N. del T.
-            persona que se dedica a la imprenta) desconocido usó una galería de
-            textos y los mezcló de tal manera que logró hacer un libro de textos
-            especimen. No sólo sobrevivió 500 años, sino que tambien ingresó
-            como texto de relleno en documentos electrónicos, quedando
-            esencialmente igual al original. Fue popularizado en los 60s con la
-            creación de las hojas "Letraset", las cuales contenian pasajes de
-            Lorem Ipsum, y más recientemente con software de autoedición, como
-            por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem
-            Ipsum.
-          </p>
+          <h3>Elementos Favoritos</h3>
+          {/* <code>//code here</code> */}
+          <ListGroup as="ol" numbered>
+            {elementosFavoritos.map((elementos, key) => (
+              // <li key={key}>{elementos.name}</li>
+              <ListGroup.Item key={key} as="li">
+                {elementos.name}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
         </Offcanvas.Body>
       </Offcanvas>
     </>
   );
 };
 
+/**
+ * 
+  
+  <ListGroup.Item as="li">Cras justo odio</ListGroup.Item>
+  <ListGroup.Item as="li">Cras justo odio</ListGroup.Item>
+  <ListGroup.Item as="li">Cras justo odio</ListGroup.Item>
+
+ * 
+*/
 export default OffCanvasExample;
