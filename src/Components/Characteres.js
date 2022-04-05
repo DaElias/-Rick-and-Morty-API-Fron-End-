@@ -51,25 +51,26 @@ const Characteres = ({ setFavoritos, contexto }) => {
               style={{
                 width: "14rem",
                 boxShadow: `1px 1px 15px ${
-                  contexto === false ? "white" : "gray"
+                  contexto === true && "gray"
                 }`,
                 border: `2px solid ${contexto === false ? "black" : "white"}`,
+                backgroundColor: contexto === true ? "white" : "black",
               }}
               key={personajes.id}
             >
               <Card.Img variant="top" src={personajes.image} />
               <Card.Body>
-                <Card.Title>{personajes.name}</Card.Title>
-                <Card.Text>Estado: {personajes.status}</Card.Text>
+                <Card.Title style={{color: contexto === false ? "white" : "black",}}>{personajes.name}</Card.Title>
+                <Card.Text style={{color: contexto === false ? "white" : "black",}}>Estado: {personajes.status}</Card.Text>
               </Card.Body>
               <ListGroup className="list-group-flush">
-                <ListGroupItem>
+                <ListGroupItem style={{backgroundColor: contexto === true ? "white" : "black",color: contexto === false ? "white" : "black",}}>
                   <b>Genero:</b> {personajes.gender}
                 </ListGroupItem>
-                <ListGroupItem>
+                <ListGroupItem style={{backgroundColor: contexto === true ? "white" : "black",color: contexto === false ? "white" : "black",}}>
                   <b>Especie:</b> {personajes.species}
                 </ListGroupItem>
-                <ListGroupItem>
+                <ListGroupItem style={{backgroundColor: contexto === true ? "white" : "black",color: contexto === false ? "white" : "black",}}>
                   <b>created:</b> {personajes.created}
                 </ListGroupItem>
               </ListGroup>
