@@ -7,7 +7,7 @@ import Header from "./Components/Header";
 import ThemeContex from "./Context/ThemeContex";
 import { useState } from "react";
 
-const App = () => {
+const App = () => { 
   const [contexto, setContexto] = useState(true);
   const [favoritos, setFavoritos] = useState([]);
 

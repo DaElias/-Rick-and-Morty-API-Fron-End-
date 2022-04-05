@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Offcanvas, Button, ListGroup, Badge } from "react-bootstrap";
+import { Offcanvas, Button, ListGroup, Badge,ProgressBar } from "react-bootstrap";
 import ThemeContex from "../Context/ThemeContex";
 
 const OffCanvasExample = ({ name, ...props }) => {
@@ -20,7 +20,7 @@ const OffCanvasExample = ({ name, ...props }) => {
         }}
       >
         <b style={{ paddingRight: "8px" }}>{name}</b>
-        <Badge bg="primary" pill>
+        <Badge bg="primary" pill >
           {elementosFavoritos.length}
         </Badge>
       </Button>
@@ -31,7 +31,8 @@ const OffCanvasExample = ({ name, ...props }) => {
         <Offcanvas.Body>
           <h3>Elementos Favoritos</h3>
           {/* <code>//code here</code> */}
-          <ListGroup as="ol" numbered>
+        <ProgressBar animated now={elementosFavoritos.length}  />
+          <ListGroup as="ol" numbered style={{paddingTop:"8px"}}>
             {elementosFavoritos.map((elementos, key) => (
               // <li key={key}>{elementos.name}</li>
               <ListGroup.Item key={key} as="li">
