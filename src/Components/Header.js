@@ -24,7 +24,10 @@ const Header = ({ handleClik, contexto }) => {
             position: "absolute",
             left: "10px",
             top: "20%",
-            backgroundColor: contexto === false ? "black" : "white",
+            backgroundColor:
+              contexto === false
+                ? "black"
+                : "rgba(var(--bs-light-rgb),var(--bs-bg-opacity))",
           }}
           onClick={handleClik}
         >

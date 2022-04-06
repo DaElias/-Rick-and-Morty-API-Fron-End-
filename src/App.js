@@ -7,7 +7,7 @@ import Header from "./Components/Header";
 import ThemeContex from "./Context/ThemeContex";
 import { useState } from "react";
 
-const App = () => { 
+const App = () => {
   const [contexto, setContexto] = useState(true);
   const [favoritos, setFavoritos] = useState([]);
 
@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <div style={{ backgroundColor: contexto === false ? "black" : "white" }}>
-      <ThemeContex.Provider value={favoritos} >
+      <ThemeContex.Provider value={favoritos}>
         <Header contexto={contexto} handleClik={handleClik} />
         <Container>
           <div style={{ paddingTop: "80px" }}>
