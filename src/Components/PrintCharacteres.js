@@ -8,7 +8,7 @@ import {
   ListGroupItem,
 } from "react-bootstrap";
 
-const PrintCharacteres = ({ contexto, carateres, handleClick }) => {
+const PrintCharacteres = ({ contexto, carateres, handleClick}) => {
   return (
     <>
       {carateres.map((personajes) => {
@@ -77,6 +77,7 @@ const PrintCharacteres = ({ contexto, carateres, handleClick }) => {
                 <Button
                   style={{ margin: "20px 0px 0px 0px" }}
                   onClick={() => handleClick(personajes)}
+                  
                 >
                   Agregar a Favoritos!
                 </Button>

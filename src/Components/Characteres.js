@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useMemo } from "react";
+import { useEffect, useState, useReducer, useMemo, useRef } from "react";
 import { FormControl, Spinner } from "react-bootstrap";
 import PrintCharacteres from "./PrintCharacteres";
 
@@ -25,12 +25,7 @@ const Characteres = ({ setFavoritos, contexto }) => {
   //* aplication useMemo
   //** Aplicamos una busqueda basica */
   const [search, setSearch] = useState("");
-  // const filteredUsers =
-  //   carateres === null
-  //     ? null
-  //     : carateres.filter((user) =>
-  //         user.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //       );
+  const searchInput = useRef(null);
   // * Cuando cambie el valor de caracteres o search se guardan
   const filteredUsers = useMemo(() => {
     return carateres === null
@@ -39,8 +34,12 @@ const Characteres = ({ setFavoritos, contexto }) => {
           user.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         );
   }, [carateres, search]);
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
+
+  const handleSearch = (/** event */) => {
+    //  * Old method
+    // setSearch(event.target.value);
+    // * new method
+    setSearch(searchInput.current.value);
   };
 
   const handleClick = (favorite) => {
@@ -60,39 +59,39 @@ const Characteres = ({ setFavoritos, contexto }) => {
 
   return (
     <>
-        {carateres === null ? (
-          <div>
-            <Spinner
-              animation="border"
-              role="status"
-              style={{
-                position: "absolute",
-                left: "50%",
-                right: "50%",
-                width: "2rem",
-                fontSize: "3rem",
-              }}
+      {carateres === null ? (
+        <div>
+          <Spinner
+            animation="border"
+            role="status"
+            style={{
+              position: "absolute",
+              left: "50%",
+              right: "50%",
+              width: "2rem",
+              fontSize: "3rem",
+            }}
+          />
+        </div>
+      ) : (
+        <>
+          <div className="fromControlMov">
+            <FormControl
+              style={{ boxShadow: " 1px 1px 130px rgb(155, 146, 146)" }}
+              placeholder="Busqueda"
+              onChange={handleSearch}
+              ref={searchInput}
             />
           </div>
-        ) : (
-          <>
-            <div className="fromControlMov">
-              <FormControl
-                style={{ boxShadow: " 1px 1px 130px rgb(155, 146, 146)" }}
-                placeholder="Busqueda"
-                onChange={handleSearch}
-                value={search}
-              />
-            </div>
-            <div className="Characteres">
+          <div className="Characteres">
             <PrintCharacteres
               contexto={contexto}
               handleClick={handleClick}
               carateres={filteredUsers}
-              />
-              </div>
-          </>
-        )}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
