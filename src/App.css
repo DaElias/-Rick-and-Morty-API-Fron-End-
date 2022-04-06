@@ -6,11 +6,29 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-auto-rows: minmax(100px, auto);
   grid-gap: 20px;
+  padding-bottom: 10%;
 }
 * {
 }
 .animation:hover {
   box-shadow: 1px 1px 120px grey;
+}
+
+.fromControlMov {
+  transition: 1s;
+  padding: 5px 0px 20px 0px;
+}
+
+@media (max-width: 600px) {
+  .fromControlMov {
+    right: -18%;
+  }
+  .fromControlMov:hover {
+    right: -15%;
+  }
+}
+html{
+  background-color: rgb(71, 73, 73);
 }
 /* 
 .box {

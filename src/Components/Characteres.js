@@ -1,13 +1,6 @@
-import { useEffect, useState, useReducer } from "react";
-import {
-  Card,
-  ListGroupItem,
-  ListGroup,
-  Button,
-  Spinner,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { useEffect, useState, useReducer, useMemo } from "react";
+import { FormControl, Spinner } from "react-bootstrap";
+import PrintCharacteres from "./PrintCharacteres";
 
 const initialState = {
   favorites: [],
@@ -29,6 +22,26 @@ const favoriteReducer = (state, acction) => {
 const Characteres = ({ setFavoritos, contexto }) => {
   const [carateres, setCarateres] = useState(null); // null || []
   const [{ favorites }, dispatch] = useReducer(favoriteReducer, initialState);
+  //* aplication useMemo
+  //** Aplicamos una busqueda basica */
+  const [search, setSearch] = useState("");
+  // const filteredUsers =
+  //   carateres === null
+  //     ? null
+  //     : carateres.filter((user) =>
+  //         user.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  //       );
+  // * Cuando cambie el valor de caracteres o search se guardan
+  const filteredUsers = useMemo(() => {
+    return carateres === null
+      ? null
+      : carateres.filter((user) =>
+          user.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        );
+  }, [carateres, search]);
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handleClick = (favorite) => {
     dispatch({ type: "ADD_TO_FAVORITE", payload: favorite });
@@ -46,8 +59,7 @@ const Characteres = ({ setFavoritos, contexto }) => {
   }, []);
 
   return (
-    <div>
-      <div className="Characteres">
+    <>
         {carateres === null ? (
           <div>
             <Spinner
@@ -64,86 +76,24 @@ const Characteres = ({ setFavoritos, contexto }) => {
           </div>
         ) : (
           <>
-            {carateres.map((personajes) => {
-              return (
-                <Card
-                  style={{
-                    width: "14rem",
-                    boxShadow: `1px 1px 15px ${contexto === true && "gray"}`,
-                    border: `2px solid ${
-                      contexto === false ? "black" : "white"
-                    }`,
-                    backgroundColor: contexto === true ? "white" : "black",
-                  }}
-                  key={personajes.id}
-                >
-                  <Card.Img variant="top" src={personajes.image} />
-                  <Card.Body>
-                    <Card.Title
-                      style={{ color: contexto === false ? "white" : "black" }}
-                    >
-                      {personajes.name}
-                    </Card.Title>
-                    <Card.Text
-                      style={{ color: contexto === false ? "white" : "black" }}
-                    >
-                      Estado: {personajes.status}
-                    </Card.Text>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem
-                      style={{
-                        backgroundColor: contexto === true ? "white" : "black",
-                        color: contexto === false ? "white" : "black",
-                      }}
-                    >
-                      <b>Genero:</b> {personajes.gender}
-                    </ListGroupItem>
-                    <ListGroupItem
-                      style={{
-                        backgroundColor: contexto === true ? "white" : "black",
-                        color: contexto === false ? "white" : "black",
-                      }}
-                    >
-                      <b>Especie:</b> {personajes.species}
-                    </ListGroupItem>
-                    <ListGroupItem
-                      style={{
-                        backgroundColor: contexto === true ? "white" : "black",
-                        color: contexto === false ? "white" : "black",
-                      }}
-                    >
-                      <b>created:</b> {personajes.created}
-                    </ListGroupItem>
-                  </ListGroup>
-                  <Card.Body>
-                    <Card.Link href="#">Origen</Card.Link>
-                    {/* <Card.Link href="#">Another Link</Card.Link> */}
-
-                    <OverlayTrigger
-                      key="bottom"
-                      placement="bottom"
-                      overlay={
-                        <Tooltip id={`tooltip-$bottom`}>
-                         Agregar a la barra de favoritos!!
-                        </Tooltip>
-                      }
-                    >
-                      <Button
-                        style={{ margin: "20px 0px 0px 0px" }}
-                        onClick={() => handleClick(personajes)}
-                      >
-                        Agregar a Favoritos!
-                      </Button>
-                    </OverlayTrigger>
-                  </Card.Body>
-                </Card>
-              );
-            })}
+            <div className="fromControlMov">
+              <FormControl
+                style={{ boxShadow: " 1px 1px 130px rgb(155, 146, 146)" }}
+                placeholder="Busqueda"
+                onChange={handleSearch}
+                value={search}
+              />
+            </div>
+            <div className="Characteres">
+            <PrintCharacteres
+              contexto={contexto}
+              handleClick={handleClick}
+              carateres={filteredUsers}
+              />
+              </div>
           </>
         )}
-      </div>
-    </div>
+    </>
   );
 };
 
